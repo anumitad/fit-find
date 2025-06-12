@@ -1,0 +1,38 @@
+version: "3.9"
+
+services:
+  backend:
+    build: ./backend
+    container_name: fitfind-backend
+    ports:
+      - "8000:8000"
+    depends_on:
+      - qdrant
+    environment:
+      - QDRANT_HOST=qdrant
+      - QDRANT_PORT=6333
+      - ORACLE_USER=${ORACLE_USER}
+      - ORACLE_PASSWORD=${ORACLE_PASSWORD}
+      - ORACLE_HOST=${ORACLE_HOST}
+      - ORACLE_PORT=${ORACLE_PORT}
+      - ORACLE_SERVICE=${ORACLE_SERVICE}
+
+  qdrant:
+    image: qdrant/qdrant
+    container_name: fitfind-qdrant
+    ports:
+      - "6333:6333"  # REST API
+      - "6334:6334"  # gRPC (optional)
+    volumes:
+      - qdrant_data:/qdrant/storage
+
+  streamlit:
+    build: ./frontend
+    container_name: fitfind-frontend
+    ports:
+      - "8501:8501"
+    depends_on:
+      - backend
+
+volumes:
+  qdrant_data:
