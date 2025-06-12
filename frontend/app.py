@@ -19,7 +19,7 @@ with tab1:
         if user_text.strip():
             with st.spinner("Sending to backend..."):
                 try:
-                    response = httpx.post(f"{API_URL}/add_text", json={"text": user_text})
+                    response = httpx.post(f"{API_URL}/notes_and_search/add_text", json={"text": user_text})
                     if response.status_code == 200:
                         st.success("Text stored successfully in Qdrant!")
                     else:
@@ -38,7 +38,7 @@ with tab1:
             with st.spinner("Uploading and transcribing..."):
                 try:
                     files = {'file': (uploaded_file.name, uploaded_file, uploaded_file.type)}
-                    response = httpx.post(f"{API_URL}/upload_media", files=files)
+                    response = httpx.post(f"{API_URL}/notes_and_search/upload_media", files=files)
                     if response.status_code == 200:
                         result = response.json()
                         st.success("Transcription successful and stored!")
@@ -55,7 +55,7 @@ with tab1:
     if st.button("Ingest Video"):
         with st.spinner("ingesting video..."):
             if video_url.strip():
-                response = httpx.post(f"{API_URL}/ingest/youtube", json={"url": video_url}, timeout=360.0)
+                response = httpx.post(f"{API_URL}/notes_and_search/youtube", json={"url": video_url}, timeout=360.0)
                 if response.status_code == 200:
                     st.success("Video ingested!")
                 else:
@@ -64,13 +64,13 @@ with tab1:
 
 with tab2: 
     def search_notes(query):
-        response = httpx.post(f"{API_URL}/search", json={"query": query})
+        response = httpx.post(f"{API_URL}/notes_and_search/search", json={"query": query})
         if response.status_code == 200:
             return response.json()
         return []
 
     def search_gemini(query):
-        response = httpx.post(f"{API_URL}/search_gemini", json={"query": query})
+        response = httpx.post(f"{API_URL}/notes_and_search/search_gemini", json={"query": query})
         if response.status_code == 200:
             return response.json().get("answer")
         return "Error calling Gemini API"
@@ -123,7 +123,7 @@ with tab3:
                 "body_fat": body_fat,
                 "muscle_mass": muscle_mass
             }
-            res = httpx.post(f"{API_URL}/body-metrics", json=data)
+            res = httpx.post(f"{API_URL}/log/body-metrics", json=data)
             if res.status_code == 200:
                 st.success("Body metrics saved!")
             else:
@@ -150,7 +150,7 @@ with tab3:
                 "exercise": exercise,
                 "sets": sets
             }
-            res = httpx.post(f"{API_URL}/workouts", json=workout_data)
+            res = httpx.post(f"{API_URL}/log/workouts", json=workout_data)
             if res.status_code == 200:
                 st.success("Workout saved!")
             else:
@@ -169,7 +169,7 @@ with tab3:
                 "food": food,
                 "calories": calories
             }
-            res = httpx.post(f"{API_URL}/nutrition", json=nutrition_data)
+            res = httpx.post(f"{API_URL}/log/nutrition", json=nutrition_data)
             if res.status_code == 200:
                 st.success("Nutrition log saved!")
             else:
@@ -184,7 +184,7 @@ with tab4:
 
     if st.button("Generate Progress Report"):
         with st.spinner("Generating report..."):
-            response = httpx.post(f"{API_URL}/progress",params={"metric_type": metric, "months": months})
+            response = httpx.post(f"{API_URL}/progress/progress",params={"metric_type": metric, "months": months})
 
             if response.status_code == 200:
                 data = response.json()
