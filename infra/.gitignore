@@ -1,0 +1,7 @@
+terraform.tfvars
+apikey.txt
+.terraform
+.oci
+.terraform.lock.hcl
+terraform.tfstate
+terraform.tfstate.backup

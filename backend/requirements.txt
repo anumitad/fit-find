@@ -1,0 +1,39 @@
+# Web API framework
+fastapi
+uvicorn[standard]
+
+# HTTP client for calling Qdrant or other APIs
+httpx
+
+# Qdrant client
+qdrant-client
+
+# Embedding models (you can change this later)
+sentence-transformers
+
+# Optional: for async usage / speedups
+aiofiles
+
+fastapi
+uvicorn[standard]
+sentence-transformers
+qdrant-client
+httpx
+openai-whisper
+torch
+python-multipart
+google-genai
+python-dotenv
+youtube-transcript-api
+pytube
+yt-dlp
+oracledb
+pandas
+databricks
+matplotlib
+prophet
+pyspark
+pandas 
+prophet
+matplotlib
+
