@@ -1,13 +1,13 @@
 # fit-find
 
-FitFind is a full-stack fitness and knowledge tracking application that integrates workout, nutrition, and biometric logging with intelligent note-taking and media organization. Users can:
+FitFind is a full-stack fitness and knowledge tracking application that combines workout, nutrition, and biometric logging with intelligent note/media organization and LLM-based search. Users can:
 
-- Track body metrics, workouts, and nutrition data (stored in Oracle Cloud Autonomous DB)
+- Track body metrics, workouts, and nutrition (stored in Oracle Cloud Autonomous DB)
 
-- Upload and semantically search notes, YouTube links, videos, and audio using a vector database (Qdrant)
+- Upload notes, YouTube videos, audio, and video files for semantic indexing in Qdrant
 
-- Query personal media using natural language thanks to embeddings + semantic search
+- Query stored media using natural language with LLM-powered Retrieval Augmented Generation (RAG)
 
-- Visualize historical and predicted progress for fitness goals using Prophet
+- Visualize and forecast fitness progress using time series modeling
 
-- Interact with an intuitive Streamlit frontend, powered by a FastAPI backend and Terraform-provisioned infrastructure
+- Interact via a Streamlit frontend backed by a FastAPI API, with infrastructure provisioned using Terraform
